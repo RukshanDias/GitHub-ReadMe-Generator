@@ -1,42 +1,35 @@
 import React from 'react';
-import { useState } from 'react';
-import AccountForm from './AccountForm';
-import AboutMeForm from './AboutMeForm';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
-const Form = () => {
-    const [page, setpage] = useState(0);
-    const formHeaders = ["Account Detals", "About You", "Social media", "Technologies"];
-    const FormDisplay = () => {
-        switch (page) {
-            case 0:
-                return <AccountForm />
-            case 1:
-                return <AboutMeForm />
-            default:
-                <h2>error</h2>
+const Form = (props) => {
+    const pageNo = props.page;
+    const { watch, register, handleSubmit, formState: { errors } } = useForm({ mode: "all" });
+    const onSubmit = async(data) => {
+        try {
+            const response = await axios.post('/api/form-data', data);
+            console.log(response.data); // response from the server
+        } catch (error) {
+            console.log(error);
         }
     }
+    console.log("page " + props.page);
 
     return (
-        <div className='form'>
-            <div className='progressbar'></div>
+        <div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                {pageNo === 0 && (
+                    <div>
+                        <input type="url" placeholder="Github Profile Link" {...register("Github Profile Link", { required: true, maxLength: 80 })} /><br />
+                        <input type="text" placeholder="Name" {...register("Name", { required: true, maxLength: 100 })} /><br />
+                        <label htmlFor='username' />
+                        <input type="text" id='username' {...register("username", { required: true, value: 'error' })} />
+                    </div>
+                )}
 
-            <div className='form-container'>
-                <div className='header'>
-                    <h2>{formHeaders[page]}</h2>
-                </div>
-                <div className='body'>{FormDisplay()}</div>
-                <div className='footer'>
-                    <button
-                        disabled={page <= 0}
-                        onClick={() => setpage(() => page - 1)}
-                    >Back</button>
-                    <button
-                        disabled={page === formHeaders.length - 1}
-                        onClick={() => setpage(() => page + 1)}
-                    >Next</button>
-                </div>
-            </div>
+                <input type="text" placeholder="Email" {...register("Email", { required: true, pattern: /^\S+@\S+$/i })} /><br />
+                <input type="checkbox" placeholder="Technologies" {...register("Technologies", { required: true, maxLength: 12 })} />
+            </form>
         </div>
     )
 }
