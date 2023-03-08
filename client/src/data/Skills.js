@@ -76,7 +76,7 @@ const frontend = [
         link: "https://cdn.jsdelivr.net/npm/devicon@2.10.0/icons/react/react-original.svg",
     },
     {
-        name: "Vue.js",
+        name: "Vue js",
         link: "https://cdn.jsdelivr.net/npm/devicon@2.10.0/icons/vuejs/vuejs-original.svg",
     },
     {
@@ -92,11 +92,11 @@ const frontend = [
 // backend skills obj
 const backend = [
     {
-        name: "Node.js",
+        name: "Node js",
         link: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg",
     },
     {
-        name: "Express.js",
+        name: "Express js",
         link: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original-wordmark.svg",
     },
     {
