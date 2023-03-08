@@ -13,12 +13,19 @@ const Form = (props) => {
     } = useForm({ mode: "all" });
     const socialApps = ["twitter", "stackoverflow", "facebook", "linkedin", "youtube", "Medium", "discord"];
 
-    const displaySkills = (object) => {
+    const displaySkills = (object, startname) => {
         return (
             <div className="flex flex-wrap">
                 {object.map((element, index) => (
                     <div key={index} className="flex items-center w-1/4 my-1">
-                        <input type="checkbox" className="mr-1 cursor-pointer" id={element.name} name={element.name} value={element.link} />
+                        <input
+                            type="checkbox"
+                            className="mr-1 cursor-pointer"
+                            id={element.name}
+                            name={startname + element.name}
+                            value={element.link}
+                            {...register(startname + element.name)}
+                        />
                         <label htmlFor={element.name} className="flex items-center cursor-pointer">
                             <img src={element.link} alt={element.name} className="w-10 h-10 mr-1" />
                         </label>
@@ -27,12 +34,47 @@ const Form = (props) => {
             </div>
         );
     };
+    const getCheckboxData = (startname, data) => {
+        const checkedData = Object.entries(data)
+            .filter(([name, value]) => {
+                return name.startsWith(startname) && value != false;
+            })
+            .map(([name, value]) => value);
+        console.log(checkedData);
+        return checkedData;
+    };
+
+    const getSocialLinksData = (data) => {
+        let socialLinks = {};
+        socialApps.forEach((app) => {
+            const link = data[app];
+            if (link && link.trim() !== "") {
+                socialLinks[app] = link;
+            }
+        });
+        console.log(socialLinks);
+        return socialLinks;
+    };
+
     const onSubmit = (data, e) => {
         console.log(data, e);
-        sendFormData(data);
+        const selectedLanguages = getCheckboxData("language", data);
+        const selectedFrontend = getCheckboxData("frontend", data);
+        const selectedBackend = getCheckboxData("backend", data);
+        const socialLinksObj = getSocialLinksData(data);
+
+        const FinalData = {
+            ...data,
+            selectedLanguages,
+            selectedFrontend,
+            selectedBackend,
+            socialLinksObj,
+        };
+        sendFormData(FinalData);
     };
 
     const sendFormData = (data) => {
+        console.log(data)
         axios
             .post("http://localhost:8000/api", data)
             .then((response) => {
@@ -102,43 +144,67 @@ const Form = (props) => {
                 {pageNo === 1 && (
                     <>
                         <h2 className="mb-3">Languages</h2>
-                        {displaySkills(languages)}
+                        {/* keep the space inthe end */}
+                        {displaySkills(languages, "language ")}
                         <h2 className="my-3">Frontend</h2>
-                        {displaySkills(frontend)}
+                        {displaySkills(frontend, "frontend ")}
                         <h2 className="my-3">Backend</h2>
-                        {displaySkills(backend)}
+                        {displaySkills(backend, "backend ")}
                     </>
                 )}
 
                 {/* LINKS */}
                 {pageNo === 2 && (
                     <div>
-                        <input
-                            type="url"
-                            placeholder="Github Profile Link"
-                            {...register("GithubProfileLink", {
-                                required: true,
-                                maxLength: 80,
-                            })}
-                        />
-                        {errors.GithubProfileLink && <p>This field is required</p>}
-                        <br />
+                        {socialApps.map((app, index) => {
+                            return (
+                                <div key={index} className="my-4">
+                                    <input
+                                        className="w-full bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg outline-blue-600 p-2.5"
+                                        type="url"
+                                        name={app}
+                                        placeholder={app + " profile link"}
+                                        {...register(app, {
+                                            required: false,
+                                            maxLength: 80,
+                                        })}
+                                    />
+                                    {errors[app] && <p>This field is required</p>}
+                                    <br />
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
 
                 {/* OTHERS */}
                 {pageNo === 3 && (
                     <div>
-                        <input
-                            type="url"
-                            placeholder="Github Profile Link"
-                            {...register("GithubProfileLink", {
-                                required: true,
-                                maxLength: 80,
-                            })}
-                        />
-                        {errors.GithubProfileLink && <p>This field is required</p>}
-                        <br />
+                        <div className="flex items-center my-2">
+                            <input
+                                type="checkbox"
+                                className="mr-2 cursor-pointer"
+                                id="displayGitStats"
+                                name="displayGitStats"
+                                {...register("displayGitStats")}
+                            />
+                            <label htmlFor="displayGitStats" className="flex items-center cursor-pointer">
+                                Display GitHub stats
+                            </label>
+                        </div>
+
+                        <div className="flex items-center my-2">
+                            <input
+                                type="checkbox"
+                                className="mr-2 cursor-pointer"
+                                id="displayTopSkills"
+                                name="displayTopSkills"
+                                {...register("displayTopSkills")}
+                            />
+                            <label htmlFor="displayTopSkills" className="flex items-center cursor-pointer">
+                                Display GitHub Top Skills
+                            </label>
+                        </div>
                         <button type="submit">Generate</button>
                     </div>
                 )}
