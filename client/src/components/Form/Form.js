@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { languages, frontend, backend } from "../../data/Skills";
+import MarkdownContext from "../../context/MarkdownContext";
 
 const Form = (props) => {
     const pageNo = props.page;
+    const [loading, setLoading] = useState(false);
+    const { setResponseData } = useContext(MarkdownContext);
+    const navigate = useNavigate();
+    const socialApps = ["twitter", "stackoverflow", "facebook", "linkedin", "youtube", "Medium", "discord"];
     const {
-        watch,
         register,
         handleSubmit,
         formState: { errors, isValid },
     } = useForm({ mode: "all" });
-    const socialApps = ["twitter", "stackoverflow", "facebook", "linkedin", "youtube", "Medium", "discord"];
 
     const displaySkills = (object, startname) => {
         return (
@@ -34,6 +38,7 @@ const Form = (props) => {
             </div>
         );
     };
+
     const getCheckboxData = (startname, data) => {
         const checkedData = Object.entries(data)
             .filter(([name, value]) => {
@@ -73,16 +78,18 @@ const Form = (props) => {
         sendFormData(FinalData);
     };
 
-    const sendFormData = (data) => {
-        console.log(data)
-        axios
-            .post("http://localhost:8000/api", data)
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    const sendFormData = async (data) => {
+        setLoading(true);
+        console.log(data);
+        try {
+            const response = await axios.post("http://localhost:8000/api", data);
+            setResponseData(response.data);
+            navigate("/generate");
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
