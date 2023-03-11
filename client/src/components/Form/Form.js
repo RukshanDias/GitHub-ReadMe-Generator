@@ -45,7 +45,6 @@ const Form = (props) => {
                 return name.startsWith(startname) && value != false;
             })
             .map(([name, value]) => value);
-        console.log(checkedData);
         return checkedData;
     };
 
@@ -57,30 +56,38 @@ const Form = (props) => {
                 socialLinks[app] = link;
             }
         });
-        console.log(socialLinks);
         return socialLinks;
     };
 
-    const onSubmit = (data, e) => {
-        console.log(data, e);
-        const selectedLanguages = getCheckboxData("language", data);
-        const selectedFrontend = getCheckboxData("frontend", data);
-        const selectedBackend = getCheckboxData("backend", data);
-        const socialLinksObj = getSocialLinksData(data);
+    const isFormValid = (data) => {
+        if (data.GithubLink && data.Name) {
+            return true;
+        }
+        return false;
+    };
 
-        const FinalData = {
-            ...data,
-            selectedLanguages,
-            selectedFrontend,
-            selectedBackend,
-            socialLinksObj,
-        };
-        sendFormData(FinalData);
+    const onSubmit = (data, e) => {
+        if (isFormValid(data)) {
+            const selectedLanguages = getCheckboxData("language", data);
+            const selectedFrontend = getCheckboxData("frontend", data);
+            const selectedBackend = getCheckboxData("backend", data);
+            const socialLinksObj = getSocialLinksData(data);
+
+            const FinalData = {
+                ...data,
+                selectedLanguages,
+                selectedFrontend,
+                selectedBackend,
+                socialLinksObj,
+            };
+            sendFormData(FinalData);
+        } else {
+            console.log("invalid data");
+        }
     };
 
     const sendFormData = async (data) => {
         setLoading(true);
-        console.log(data);
         try {
             const response = await axios.post("http://localhost:8000/api", data);
             setResponseData(response.data);
@@ -120,7 +127,7 @@ const Form = (props) => {
                             type="text"
                             id="name"
                             placeholder="Name"
-                            {...register("Name", { required: true, maxLength: 100 })}
+                            {...register("Name", { required: true, maxLength: 50 })}
                         />
                         {errors.Name && <p className="form-error-msg">This field is required</p>}
 
@@ -141,7 +148,7 @@ const Form = (props) => {
                             className="w-full bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg outline-blue-600 p-2.5"
                             rows={5}
                             id="work"
-                            defaultValue={`🔭 I’m currently working on: ...\n👯 I’m looking to collaborate on: ...\n💬 Ask me about: ...\n⚡ Fun fact: ...`}
+                            defaultValue={`🔭 I’m currently working on: ...\n👯 I’m looking to collaborate on: ...\n💬 Ask me about: ...\n🌱 I’m currently learning: ...\n⚡ Fun fact: ...`}
                             {...register("work")}
                         />
                     </div>
