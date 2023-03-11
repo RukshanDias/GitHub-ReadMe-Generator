@@ -9,7 +9,7 @@ const FormCard = () => {
   const childRef = useRef();
 
   return (
-    <div className="Form bg-neutral-100 px-10 py-12 rounded-md w-1/3 my-2">
+    <div className="Form bg-neutral-100 px-10 py-12 rounded-md w-1/3 my-2 shadow">
       <div className="form-container">
         <div className="progressbar text-gray-500 text-sm font-semibold">
           <p>
