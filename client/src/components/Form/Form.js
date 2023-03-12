@@ -89,7 +89,8 @@ const Form = (props) => {
     const sendFormData = async (data) => {
         setLoading(true);
         try {
-            const response = await axios.post("http://localhost:8000/api", data);
+            console.log(process.env.REACT_APP_SERVER_URL);
+            const response = await axios.post(process.env.REACT_APP_SERVER_URL, data);
             setResponseData(response.data);
             navigate("/generate");
         } catch (error) {

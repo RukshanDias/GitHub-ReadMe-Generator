@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const generateMarkdown = require("./generateMarkdown");
+require("dotenv").config();
 
 const app = express();
 
@@ -17,6 +18,6 @@ app.post("/api", (req, res) => {
     res.send(markdown);
 });
 
-app.listen(8000, () => {
-    console.log("Server started on port 8000");
+app.listen(process.env.SERVER_PORT, () => {
+    console.log("Server started on port " + process.env.SERVER_PORT);
 });
