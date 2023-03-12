@@ -6,6 +6,7 @@ const path = require("path");
 require("dotenv").config();
 
 const app = express();
+const __dirname = path.resolve();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
