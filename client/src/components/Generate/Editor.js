@@ -1,4 +1,5 @@
 import React from "react";
+import { FiCopy, FiDownload } from "react-icons/fi";
 
 const Editor = (props) => {
     const handleCopy = () => {
@@ -19,10 +20,14 @@ const Editor = (props) => {
                 {props.text}
             </textarea>
             <div className="flex justify-around">
-                <button className="bg-purple-800 text-stone-50 px-4 py-1 rounded-lg cursor-pointer mt-2" onClick={handleCopy}>
+                <button className="bg-purple-800 text-stone-50 px-4 py-1 rounded-lg cursor-pointer mt-2 flex items-center" onClick={handleCopy}>
+                    <FiCopy className="mr-2" />
                     Copy
                 </button>
-                <button className="bg-purple-800 text-stone-50 px-4 py-1 rounded-lg cursor-pointer mt-2">Download</button>
+                <button className="bg-purple-800 text-stone-50 px-4 py-1 rounded-lg cursor-pointer mt-2 flex items-center">
+                    <FiDownload className="mr-2" />
+                    Download
+                </button>
             </div>
         </div>
     );
