@@ -9,6 +9,15 @@ const Editor = (props) => {
             document.execCommand("copy");
         }
     };
+    const handleDownload = () => {
+        const element = document.createElement("a");
+        const file = new Blob([props.text], { type: "text/markdown" });
+        element.href = URL.createObjectURL(file);
+        element.download = "ReadMe.md";
+        document.body.appendChild(element);
+        element.click();
+    };
+
     return (
         <div className="w-2/5 max-h-screen px-16 py-5 bg-neutral-100 mx-5 my-5 overflow-auto">
             <textarea
@@ -24,7 +33,7 @@ const Editor = (props) => {
                     <FiCopy className="mr-2" />
                     Copy
                 </button>
-                <button className="bg-purple-800 text-stone-50 px-4 py-1 rounded-lg cursor-pointer mt-2 flex items-center">
+                <button className="bg-purple-800 text-stone-50 px-4 py-1 rounded-lg cursor-pointer mt-2 flex items-center" onClick={handleDownload}>
                     <FiDownload className="mr-2" />
                     Download
                 </button>
