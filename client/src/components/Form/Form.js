@@ -199,6 +199,19 @@ const Form = (props) => {
                             <input
                                 type="checkbox"
                                 className="mr-2 cursor-pointer"
+                                id="displayCoverImg"
+                                name="displayCoverImg"
+                                {...register("displayCoverImg")}
+                            />
+                            <label htmlFor="displayCoverImg" className="flex items-center cursor-pointer">
+                                Display Cover image on top
+                            </label>
+                        </div>
+
+                        <div className="flex items-center my-2">
+                            <input
+                                type="checkbox"
+                                className="mr-2 cursor-pointer"
                                 id="displayGitStats"
                                 name="displayGitStats"
                                 {...register("displayGitStats")}

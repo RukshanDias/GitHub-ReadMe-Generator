@@ -10,6 +10,11 @@ function generateMarkdown(formData) {
     const socialLinks = formData.socialLinksObj;
     const gitStats = formData.displayGitStats;
     const gitTopSkill = formData.displayTopSkills;
+    const coverImg = formData.displayCoverImg;
+
+    // other links
+    const coverImgLink =
+        "https://camo.githubusercontent.com/36a43294a993d9d8ac91f4849fe55646d88a91c27c5c89305be05f2da3782fdd/68747470733a2f2f692e70696e696d672e636f6d2f6f726967696e616c732f66382f39302f34312f66383930343139393530343633336437376333643237663836393932336334372e676966";
 
     // modify work
     work = work.replace(/\n/g, "\n\n");
@@ -38,7 +43,7 @@ function generateMarkdown(formData) {
 
     const generateSocialMarkdown = () => {
         let socialMarkdown = "";
-        if (socialLinks) {
+        if (Object.keys(socialLinks).length !== 0) {
             socialMarkdown += "<div> \n\n## Contact Me\n";
             for (let key in socialLinks) {
                 socialMarkdown += `<a href="${socialLinks[key]}" target="_blank" style="display: inline-block; margin-right: 12px;"> <img src="https://img.shields.io/badge/${key}-%2300acee.svg?&style=for-the-badge&logo=${key}&logoColor=white" alt=${key} style="margin-bottom: 5px;" /></a>`;
@@ -49,6 +54,13 @@ function generateMarkdown(formData) {
         return socialMarkdown;
     };
 
+    const generateCoverImg = () => {
+        let coverImgMarkdown = "";
+        if (coverImg) {
+            coverImgMarkdown += `<img src="${coverImgLink}" align="center" style="width: 100%" />\n\n `;
+        }
+        return coverImgMarkdown;
+    };
     const generateGitHubStats = () => {
         let gitStatsMarkdown = "";
         if (gitStats) {
@@ -67,7 +79,7 @@ function generateMarkdown(formData) {
 
     const imgLink = "https://raw.githubusercontent.com/devSouvik/devSouvik/master/gif3.gif";
     // About Section
-    const aboutMarkdown = `# Hey 👋, I'm ${name}\n## Glad to see you here!\n${personalStatement}\n\n ## Rapidfire\n <table><tr><td valign="top" width="50%">${work}</td><td valign="top" width="50%"><div align="center"><img src="${imgLink}" align="center" style="width: 100%" /></div> </td></tr></table>`;
+    const aboutMarkdown = `${generateCoverImg()}# Hey 👋, I'm ${name}\n## Glad to see you here!\n${personalStatement}\n\n ## Rapidfire\n <table><tr><td valign="top" width="50%">${work}</td><td valign="top" width="50%"><div align="center"><img src="${imgLink}" align="center" style="width: 100%" /></div> </td></tr></table>`;
     const skillsMarkdown = generateSkillsMarkdown();
     const socialMarkdown = generateSocialMarkdown();
     const gitStatsMarkdown = generateGitHubStats();
