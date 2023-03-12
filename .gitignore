@@ -24,3 +24,6 @@ pids
 *.njsproj
 *.sln
 *.sw*
+
+# env files
+.env
