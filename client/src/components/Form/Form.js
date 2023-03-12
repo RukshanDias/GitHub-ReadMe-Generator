@@ -4,10 +4,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { languages, frontend, backend } from "../../data/Skills";
 import MarkdownContext from "../../context/MarkdownContext";
+import Alert from "../Alerts/Alert";
 
 const Form = (props) => {
     const pageNo = props.page;
     const [loading, setLoading] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(false);
     const { setResponseData } = useContext(MarkdownContext);
     const navigate = useNavigate();
     const socialApps = ["twitter", "stackoverflow", "facebook", "linkedin", "youtube", "Medium", "discord"];
@@ -83,6 +85,7 @@ const Form = (props) => {
             sendFormData(FinalData);
         } else {
             console.log("invalid data");
+            setErrorMsg(true);
         }
     };
 
@@ -102,6 +105,8 @@ const Form = (props) => {
 
     return (
         <div>
+            {errorMsg && <Alert />}
+
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* ABOUT YOU */}
                 {pageNo === 0 && (
