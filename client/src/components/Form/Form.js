@@ -105,7 +105,7 @@ const Form = (props) => {
 
     return (
         <div>
-            {errorMsg && <Alert />}
+            {errorMsg && <Alert show={errorMsg} setShow={setErrorMsg}/>}
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* ABOUT YOU */}
@@ -238,7 +238,7 @@ const Form = (props) => {
                                 Display GitHub Top Skills
                             </label>
                         </div>
-                        <button type="submit">Generate</button>
+                        <button type="submit" className="form-submit-btn"/>
                     </div>
                 )}
             </form>

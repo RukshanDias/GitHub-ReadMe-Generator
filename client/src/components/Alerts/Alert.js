@@ -1,7 +1,7 @@
 import React from "react";
 
-const Alert = () => {
-    const [showAlert, setShowAlert] = React.useState(true);
+const Alert = ({ show, setShow }) => {
+    const [showAlert, setShowAlert] = React.useState(show);
     return (
         <>
             {showAlert ? (
@@ -11,7 +11,7 @@ const Alert = () => {
                     </span>
                     <button
                         className="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
-                        onClick={() => setShowAlert(false)}
+                        onClick={() => setShow(false)}
                     >
                         <span>×</span>
                     </button>
