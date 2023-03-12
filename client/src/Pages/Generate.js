@@ -10,7 +10,7 @@ const Generate = () => {
         setText(event.target.value);
     };
     return (
-        <div className="App text-center h-screen">
+        <div className="generate-page App text-center h-screen">
             <h2 className="text-4xl font-mono font-semibold pt-3">\\ Generated ReadMe //</h2>
             <div className="flex justify-center">
                 <Editor text={text} handlechange={handleTextChange} />
