@@ -8,6 +8,14 @@ const FormCard = () => {
     const formHeaders = ["About You", "Skills", "Links", "Others"];
     const nextBtnRef = useRef(null);
 
+    const handleFormSubmit = () => {
+        const randomBtn = document.querySelector(".form-submit-btn");
+        if (randomBtn) {
+            console.log("found");
+            randomBtn.click();
+        }
+    };
+
     return (
         <div className="Form bg-neutral-100 px-10 py-12 rounded-md w-1/3 my-2 shadow relative">
             <div className="form-container">
@@ -27,7 +35,10 @@ const FormCard = () => {
 
                 <div className="footer flex justify-around mt-5">
                     <button
-                        className="bg-purple-800 text-stone-50 px-4 py-1 rounded-lg cursor-pointer flex items-center"
+                        className={` text-stone-50 px-4 py-1 rounded-lg flex items-center ${
+                            page == 0 ? "bg-slate-400" : "bg-purple-800 cursor-pointer"
+                        }`}
+                        // className={page == 0 ? "bg-grey-100" : "bg-purple-800"}
                         disabled={page <= 0}
                         onClick={() => setpage(() => page - 1)}
                     >
@@ -37,10 +48,18 @@ const FormCard = () => {
 
                     {/* redering Next btn or Submit btn */}
                     {page === formHeaders.length - 1 ? (
-                        <button type="submit">Submit</button>
+                        <button
+                            type="submit"
+                            onClick={handleFormSubmit}
+                            className="bg-gradient-to-r from-indigo-500 to-purple-700 text-stone-50 px-4 py-2 rounded-lg flex items-center cursor-pointer"
+                        >
+                            Submit
+                        </button>
                     ) : (
                         <button
-                            className="bg-purple-800 text-stone-50 px-4 py-1 rounded-lg cursor-pointer flex items-center"
+                            className={` text-stone-50 px-4 py-1 rounded-lg flex items-center ${
+                                page == formHeaders.length - 1 ? "bg-slate-400" : "bg-purple-800 cursor-pointer"
+                            }`}
                             ref={nextBtnRef}
                             disabled={page === formHeaders.length - 1}
                             onClick={() => setpage(() => page + 1)}
