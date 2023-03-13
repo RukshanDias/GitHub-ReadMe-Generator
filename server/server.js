@@ -6,7 +6,6 @@ const path = require("path");
 require("dotenv").config();
 
 const app = express();
-const __dirname = path.resolve();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +20,7 @@ app.post("/api", (req, res) => {
     res.send(markdown);
 });
 
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
