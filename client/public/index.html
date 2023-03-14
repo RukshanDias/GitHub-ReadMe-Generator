@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="Content-Security-Policy" content="default-src https://cdn.example.net; child-src 'none'; object-src 'none'">
+    <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self' https://cdn.example.net;
+    child-src 'none';
+    object-src 'none';
+    script-src 'self' 'unsafe-inline';
+    script-src-elem 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline';
+    style-src-elem 'self' 'unsafe-inline';
+    ">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ReadMe Generator</title>
   </head>
