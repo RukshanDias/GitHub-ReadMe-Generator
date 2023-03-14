@@ -13,9 +13,9 @@ app.use(cors());
 // app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.use((req, res, next) => {
-    res.setHeader('Content-Security-Policy', "default-src 'self'; img-src 'self' data:;");
+    res.setHeader('Content-Security-Policy", "connect-src https://github-readme-generator-api.onrender.com');
     next();
-  });
+});
 
 app.post(process.env.SERVER_URL, (req, res) => {
     const formData = req.body;
