@@ -92,8 +92,7 @@ const Form = (props) => {
     const sendFormData = async (data) => {
         setLoading(true);
         try {
-            console.log(process.env.REACT_APP_SERVER_URL);
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}:8000/generate-readme`, data);
+            const response = await axios.post("https://github-readme-generator-api.onrender.com/generate-readme", data);
             setResponseData(response.data);
             navigate("/generate");
         } catch (error) {
@@ -105,7 +104,7 @@ const Form = (props) => {
 
     return (
         <div>
-            {errorMsg && <Alert show={errorMsg} setShow={setErrorMsg}/>}
+            {errorMsg && <Alert show={errorMsg} setShow={setErrorMsg} />}
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* ABOUT YOU */}
@@ -238,7 +237,7 @@ const Form = (props) => {
                                 Display GitHub Top Skills
                             </label>
                         </div>
-                        <button type="submit" className="form-submit-btn"/>
+                        <button type="submit" className="form-submit-btn" />
                     </div>
                 )}
             </form>
