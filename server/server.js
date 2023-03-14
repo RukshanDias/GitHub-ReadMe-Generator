@@ -17,7 +17,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.post(process.env.SERVER_URL, (req, res) => {
+app.post('/generate-readme', (req, res) => {
     const formData = req.body;
     console.log(formData);
     // res.send("Form submitted successfully!");

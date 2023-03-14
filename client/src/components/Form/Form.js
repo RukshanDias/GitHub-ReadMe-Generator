@@ -93,7 +93,7 @@ const Form = (props) => {
         setLoading(true);
         try {
             console.log(process.env.REACT_APP_SERVER_URL);
-            const response = await axios.post(process.env.REACT_APP_SERVER_URL, data);
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}:8000/generate-readme`, data);
             setResponseData(response.data);
             navigate("/generate");
         } catch (error) {
