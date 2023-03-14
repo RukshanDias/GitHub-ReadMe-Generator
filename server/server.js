@@ -30,7 +30,8 @@ app.post('/generate-readme', (req, res) => {
 // });
 
 try {
-    app.listen(process.env.SERVER_PORT, () => {
+    const PORT = process.env.SERVER_PORT || 8000;
+    app.listen(PORT, () => {
         console.log("Server started on port " + process.env.SERVER_PORT);
     });
 } catch (err) {
