@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 // app.use(express.static(path.join(__dirname, "client", "build")));
 
-app.post("/api", (req, res) => {
+app.post(process.env.SERVER_URL, (req, res) => {
     const formData = req.body;
     console.log(formData);
     // res.send("Form submitted successfully!");
