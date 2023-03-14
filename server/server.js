@@ -13,7 +13,7 @@ app.use(cors());
 // app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.use((req, res, next) => {
-    res.setHeader('Content-Security-Policy', "default-src 'self'; img-src 'self' https://raw.githubusercontent.com https://camo.githubusercontent.com *;");
+    res.setHeader('Content-Security-Policy', "default-src 'self'; img-src 'self' data:;");
     next();
   });
 
