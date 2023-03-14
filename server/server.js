@@ -24,6 +24,10 @@ app.post(process.env.SERVER_URL, (req, res) => {
 //     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 // });
 
-app.listen(process.env.SERVER_PORT, () => {
-    console.log("Server started on port " + process.env.SERVER_PORT);
-});
+try {
+    app.listen(process.env.SERVER_PORT, () => {
+        console.log("Server started on port " + process.env.SERVER_PORT);
+    });
+} catch (err) {
+    console.error("Error starting server:", err);
+}
