@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { languages, frontend, backend } from "../../data/Skills";
 import MarkdownContext from "../../context/MarkdownContext";
 import Alert from "../Alerts/Alert";
+import Loading from "../Loading/Loading";
 
 const Form = (props) => {
     const pageNo = props.page;
@@ -238,6 +239,7 @@ const Form = (props) => {
                             </label>
                         </div>
                         <button type="submit" className="form-submit-btn" />
+                        {loading && <Loading />}
                     </div>
                 )}
             </form>
