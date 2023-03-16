@@ -20,7 +20,7 @@ function generateMarkdown(formData) {
     work = work.replace(/\n/g, "\n\n");
 
     const generateSkillsMarkdown = () => {
-        let skillsMarkdown = "\n\n## My Skill Set\n<table align='center'><tr>";
+        let skillsMarkdown = "\n\n## My Skill Set\n<table align='center' style='margin-left:auto; margin-right:auto;'><tr>";
         if (lanuageSkills.length !== 0) {
             skillsMarkdown += '<td style="width: 25%; vertical-align: top; text-align:center;"> \n\n### **Languages** \n <div align="center">';
             const langMarkdown = lanuageSkills.map((data) => `<img style="margin: 5px" src="${data}" alt="React" width="40" height="40" />`);
