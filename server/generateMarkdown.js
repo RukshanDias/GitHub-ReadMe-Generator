@@ -14,7 +14,7 @@ function generateMarkdown(formData) {
 
     // other links
     const coverImgLink =
-        "https://camo.githubusercontent.com/36a43294a993d9d8ac91f4849fe55646d88a91c27c5c89305be05f2da3782fdd/68747470733a2f2f692e70696e696d672e636f6d2f6f726967696e616c732f66382f39302f34312f66383930343139393530343633336437376333643237663836393932336334372e676966";
+        "https://raw.githubusercontent.com/RukshanDias/GitHub-ReadMe-Generator/main/client/src/assets/cover-img.gif";
 
     // modify work
     work = work.replace(/\n/g, "\n\n");
