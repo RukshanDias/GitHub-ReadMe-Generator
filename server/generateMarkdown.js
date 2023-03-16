@@ -44,11 +44,10 @@ function generateMarkdown(formData) {
     const generateSocialMarkdown = () => {
         let socialMarkdown = "";
         if (Object.keys(socialLinks).length !== 0) {
-            socialMarkdown += "<div> \n\n## Contact Me\n";
+            socialMarkdown += "\n\n## Contact Me\n";
             for (let key in socialLinks) {
                 socialMarkdown += `<a href="${socialLinks[key]}" target="_blank" style="display: inline-block; margin-right: 12px;"> <img src="https://img.shields.io/badge/${key}-%2300acee.svg?&style=for-the-badge&logo=${key}&logoColor=white" alt=${key} style="margin-bottom: 5px;" /></a>`;
             }
-            socialMarkdown += "<div/>";
         }
 
         return socialMarkdown;
